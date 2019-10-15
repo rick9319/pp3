@@ -1,5 +1,6 @@
 <?php include("seguridad.php");
-
+ include("conexion.php");
+$link=conecta();
  ?> 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
