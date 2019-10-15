@@ -1,5 +1,4 @@
-<?php include("seguridad.php"); 
-?> 
+<?php include("seguridad.php"); ?> 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -93,7 +92,7 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                        <li class="nav-item d-none d-md-block"> <a class="nav-link waves-effect waves-dark" href="bienvenido.php"><i class="mdi mdi-arrow-left-bold font-24"></i></a>
+                        <li class="nav-item d-none d-md-block"> <a class="nav-link waves-effect waves-dark" href="dataexport.php"><i class="mdi mdi-arrow-left-bold font-24"></i></a>
                         <!-- ============================================================== -->
                         <!-- create new -->
                         <!-- ============================================================== -->
@@ -264,12 +263,12 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Exportar datos</h4>
+                        <h4 class="page-title">Busqueda de reporte</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="bienvenido.php">Inicio</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Exportar</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Busqueda</li>
                                 </ol>
                             </nav>
                         </div>
@@ -289,74 +288,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Exportar Datos (PDF)</h4>
-                                    <br>
-                                    <div class="form-group row">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><br>Exportar Usuarios</button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="usuariospdf.php">Exportar todos</a>
-                                            <a class="dropdown-item" href="uspdfad.php">Exportar administradores</a>
-                                            <a class="dropdown-item" href="uspdfad2.php">Exportar tecnicos</a>
-                                             <a class="dropdown-item" href="uspdfad1.php">Exportar clientes</a>
-                                                                          </div>
-                                         <div>
-                                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-server"></i><br>Exportar Inventario</button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="exportarinventod.php">Exportar todos</a>
-                                            <a class="dropdown-item" href="filtroinvtiduser.php">Exportar por usuario</a>
-                                            <a class="dropdown-item" href="filtroinvtiduser2.php">Exportar por categoria</a>
-                                             <a class="dropdown-item" href="filtroinvtiduser3.php">Exportar por marca</a>
-                                  </div>
-                                                                             </div>
-                                                                             <div>
-                                                                            <a href="au1.php"><button type="button" class="btn btn-danger "><i class="mdi mdi-hospital-building"></i><br>Exportar Aulas</button></a>
-                                     
-                                        </div> 
-                                        <div>
-                                          <a href="ca1.php"><button type="button" class="btn btn-danger "><i class="mdi mdi-loupe"></i><br>Exportar Categorias</button></a>
-                                     </div>
-                                    </div>
-                                     <h4 class="card-title">Exportar Datos (EXCEL)</h4><br>
-                                       <div class="form-group row">
-                                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><br>Exportar Usuarios</button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="exportarexcel.php">Exportar todos</a>
-                                            <a class="dropdown-item" href="exportarexcel2.php">Exportar administradores</a>
-                                            <a class="dropdown-item" href="exportarexcel3.php">Exportar tecnicos</a>
-                                             <a class="dropdown-item" href="exportarexcel4.php">Exportar clientes</a>
-                                                                          </div>
-                                         <div>
-                                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-server"></i><br>Exportar Inventario</button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="excelinv.php">Exportar todos</a>
-                                          <a class="dropdown-item" href="exceluser.php">Exportar por usuario</a>
-                                            <a class="dropdown-item" href="excelcat.php">Exportar por categoria</a>
-                                             <a class="dropdown-item" href="excelmarca.php">Exportar por marca</a>
-                                  </div>
-                                                                             </div>
-                                                                             <div>
-                                                                               <a href="a1ex.php"><button type="button" class="btn btn-success "><i class="mdi mdi-hospital-building"></i><br>Exportar Aulas</button></a>
-                                     
-                                        </div> 
-                                        <div>
-                                          <a href="cat1ex.php"><button type="button" class="btn btn-success "><i class="mdi mdi-hospital-building"></i><br>Exportar Categorias</button></a>
-                                     
-                                    </div>
-                                    </div>
-                                </div>
-                                       
-                                 
-                                        
+                            <form class="form-horizontal" action="excelinv4.php" method="post">
+                                <div class="card-body">
+                                    <h4 class="card-title">Reporte por marca de equipo</h4>
                                     
-                                       
+                                       <div class="form-group row">
+                                       <label for="email1" class="col-sm-3 text-right control-label col-form-label">Marca</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="email1" placeholder="Ingrese la marca. Ej: HP,Compaq,etc." name="marca">
                                         </div>
                                     </div>
-                                  
-                                
                                  
                                 </div>
-                           </div>
+                                <div class="border-top">
+                                    <div class="card-body">
+                                        <input type="submit" value="Ingresar" class="btn btn-info" name="Enviar">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                                            
                     </div>
                    
