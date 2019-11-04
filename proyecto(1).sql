@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2019 a las 13:04:51
+-- Tiempo de generación: 04-11-2019 a las 23:56:33
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -60,6 +60,13 @@ CREATE TABLE `encuesta` (
   `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `encuesta`
+--
+
+INSERT INTO `encuesta` (`idenc`, `iduser`, `idrol`, `evalsistema`, `facultad`, `edad`, `implementacion`, `nombre`) VALUES
+(41, 48, 3, 3, 'Empresarial', '50-70', 'No', 'aswq');
+
 -- --------------------------------------------------------
 
 --
@@ -77,16 +84,6 @@ CREATE TABLE `equipo` (
   `fechre` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `equipo`
---
-
-INSERT INTO `equipo` (`idequipo`, `idtipo`, `idusuario`, `marca`, `modelo`, `nserie`, `cantidad`, `fechre`) VALUES
-(11, 2, 23, 'a', 'a', 'a', 2, '2019-10-16 17:23:33'),
-(12, 2, 27, 'Sony', 'PS4', 'QWWW', 0, '2019-10-16 23:23:12'),
-(14, 2, 27, 'Sony', 'VaioX3', 'SMC-111234', 15, '2019-10-17 22:13:33'),
-(15, 2, 27, 'Sony', 'PS4', 'SERIE2', 47, '2019-10-16 23:23:12');
-
 -- --------------------------------------------------------
 
 --
@@ -102,13 +99,6 @@ CREATE TABLE `procesoasig` (
   `fechaasig` datetime NOT NULL DEFAULT current_timestamp(),
   `aprob` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `procesoasig`
---
-
-INSERT INTO `procesoasig` (`idasig`, `idequipo`, `idaula`, `idusuario`, `cantidad`, `fechaasig`, `aprob`) VALUES
-(12, 14, 5, 27, 12, '2019-10-17 22:13:58', 0);
 
 -- --------------------------------------------------------
 
@@ -126,7 +116,7 @@ CREATE TABLE `registro` (
   `correo` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   `activo` int(11) NOT NULL,
-  `fotor` longblob DEFAULT NULL,
+  `fotor` varchar(200) DEFAULT NULL,
   `fechar` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -135,12 +125,14 @@ CREATE TABLE `registro` (
 --
 
 INSERT INTO `registro` (`idusuario`, `nombre`, `apellidos`, `correl`, `idrol`, `nombreusuario`, `correo`, `password`, `activo`, `fotor`, `fechar`) VALUES
-(23, 'Alisson2019', 'Hernandez', 20180202, 3, 'alis15', 'r', 'd9b1d7db4cd6e70935368a1efb10e377', 0, 0x30, '2019-09-26 16:49:27'),
-(27, 'Laura', '2', 20181919, 2, '2', '2', '202cb962ac59075b964b07152d234b70', 0, 0x30, '2019-10-01 17:03:26'),
-(31, 'Laura', 'Gallegos', 2018020, 1, 'lmsldec', 'asd', '202cb962ac59075b964b07152d234b70', 0, 0x30, '2019-10-24 17:31:59'),
-(32, 'Laura', 'Gallegos', 2018020158, 3, 'lmsldec', '123', '202cb962ac59075b964b07152d234b70', 0, 0x30, '2019-10-24 17:33:37'),
-(46, 'Ricardo Angel', 'Gallegos Sanchez', 2018020158, 3, 'rgs9313', 'rgs9313@gmail.com', '202cb962ac59075b964b07152d234b70', 0, NULL, '2019-10-28 16:41:26'),
-(48, 'Ricardo Angel ', 'Gallegos Sanchez', 2018020202, 3, 'rg9319', 'abc@abc.com', '202cb962ac59075b964b07152d234b70', 0, 0x30, '2019-10-29 00:25:41');
+(48, 'Ricardo Angel ', 'Gallegos Sanchez', 2018020202, 3, 'rg9319', 'abc@abc.com', '202cb962ac59075b964b07152d234b70', 1, '0', '2019-10-29 00:25:41'),
+(56, 'qqq', 'qqqq', 222, 3, '1222', 'eer', '202cb962ac59075b964b07152d234b70', 0, 'assets/fotos/', '2019-11-04 15:42:51'),
+(57, 'w', 'w', 33, 3, 'wer', 'qw', '202cb962ac59075b964b07152d234b70', 0, 'assets/fotos/', '2019-11-04 15:43:54'),
+(58, 'xxx', 'xxxx', 121, 3, 'xxxx', 'asss', '202cb962ac59075b964b07152d234b70', 0, 'assets/fotos/LOGO-UEES10.jpg', '2019-11-04 15:49:49'),
+(59, 'de', 'eee', 2167, 3, '112', 'eee', '202cb962ac59075b964b07152d234b70', 0, 'assets/fotos/48', '2019-11-04 15:54:21'),
+(60, 'w', 'w', 1, 3, 'wqwe', 'eee', '202cb962ac59075b964b07152d234b70', 0, 'assets/fotos/48jpg', '2019-11-04 15:55:05'),
+(61, 'ee', 'ee', 5, 3, 'ee', 'w', '202cb962ac59075b964b07152d234b70', 0, 'assets/fotos/48.jpg', '2019-11-04 15:55:47'),
+(62, 'Ricardo Angel', 'Gallegos Sanchez', 2018010101, 3, 'rick93', 'q@q.com', '202cb962ac59075b964b07152d234b70', 0, 'assets/fotos/rick93.jpg', '2019-11-04 15:57:19');
 
 -- --------------------------------------------------------
 
@@ -180,7 +172,8 @@ CREATE TABLE `tipo` (
 INSERT INTO `tipo` (`idtipo`, `nombre`) VALUES
 (2, 'Computadora'),
 (3, 'Mobiliario'),
-(4, 'Proyector');
+(4, 'Proyector'),
+(8, 'Telefonia');
 
 --
 -- Índices para tablas volcadas
@@ -250,25 +243,25 @@ ALTER TABLE `aula`
 -- AUTO_INCREMENT de la tabla `encuesta`
 --
 ALTER TABLE `encuesta`
-  MODIFY `idenc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `idenc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idequipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idequipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `procesoasig`
 --
 ALTER TABLE `procesoasig`
-  MODIFY `idasig` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idasig` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -280,7 +273,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `tipo`
 --
 ALTER TABLE `tipo`
-  MODIFY `idtipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idtipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
