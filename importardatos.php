@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+<script src="assets/sweetalert2.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/sweetalert2.css">
+</head>
+</html>
 <!-- PROCESO DE CARGA Y PROCESAMIENTO DEL EXCEL-->
 <?php 
  include("conexion.php");
@@ -12,7 +19,7 @@ if (isset($action)== "upload"){
 $archivo = $_FILES['excel']['name'];
 $tipo = $_FILES['excel']['type'];
 $destino = "cop_".$archivo;//Le agregamos un prefijo para identificarlo el archivo cargado
-if (copy($_FILES['excel']['tmp_name'],$destino)) echo "Archivo Cargado Con Éxito";
+if (copy($_FILES['excel']['tmp_name'],$destino)) echo "";
 else echo "Error Al Cargar el Archivo";
 		
 if (file_exists ("cop_".$archivo)){ 
@@ -69,7 +76,8 @@ correl,
 idrol,
 nombreusuario,
 correo,
-password) VALUES ('";
+password,
+activo) VALUES ('";
 						foreach ($valor as $campo2 => $valor2){
 							$campo2 == "activo" ? $sql.= $valor2."');" : $sql.= $valor2."','";
 						}
@@ -78,11 +86,20 @@ password) VALUES ('";
 						if (!$result){ echo "Error al insertar registro ".$campo;$errores+=1;}
 					}	
 					/////////////////////////////////////////////////////////////////////////	
-echo "<hr> <div class='col-xs-12'>
-    	<div class='form-group'>";
-	      echo "<strong><center>ARCHIVO IMPORTADO CON EXITO, EN TOTAL $campo REGISTROS Y $errores ERRORES</center></strong>";
-echo "</div>
-</div>  ";
+echo "   <script>
+      swal({
+  title: 'Importacion completa',
+  text: 'El archivo ha sido importado con exito',
+  type: 'success',
+  confirmButtonColor: '#3085d6',
+  confirmButtonText: 'OK'
+})
+.then((result) => {
+  if (result.value) {
+    window.location='dataimport.php';
+  }
+}); 
+</script>";
 							//Borramos el archivo que esta en el servidor con el prefijo cop_
 					unlink($destino);
 					

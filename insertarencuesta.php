@@ -36,7 +36,7 @@ while($row = mysqli_fetch_row($sqlidrol)){
 })
 .then((result) => {
   if (result.value) {
-    window.location='encuesta.php';
+    window.location='bienvenido.php';
   }
 }); 
 </script>";
@@ -52,7 +52,7 @@ while($row = mysqli_fetch_row($sqlidrol)){
 })
 .then((result) => {
   if (result.value) {
-    window.location='registrouserbasic.php';
+    window.location='bienvenido.php';
   }
 }); 
 </script>";

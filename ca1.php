@@ -1,42 +1,59 @@
 <?php include("seguridad.php"); 
 include("seguridad.php");
  include("conexion.php");
-$link=conecta();
-require_once('dist/class.ezpdf.php');
-$pdf = new Cezpdf('a4');
-$pdf->selectFont('dist/fonts/courier.afm');
-$pdf->ezSetCmMargins(1,1,1.5,1.5);
-$queEmp=mysqli_query($link, "SELECT * FROM tipo");
-$totEmp = mysqli_num_rows($queEmp);
+ require('dist/FPDF/fpdf.php');
+class PDF extends FPDF
+{
 
-$ixx = 0;
-while($datatmp = mysqli_fetch_array($queEmp)) { 
-    $ixx = $ixx+1;
-    $data[] = array_merge($datatmp, array('num'=>$ixx));
+
+// Tabla coloreada
+function FancyTable($header)
+{
+    $this->Image('assets/images/logo250.jpg',80,1,50);
+
+      $this->Ln(40);
+    $this->Cell(10);
+   
+    $this->Cell(170,10,' Listado de categorias',0,0,'C');
+    
+    $this->Ln(20);
+
+    $this->SetFillColor(18, 15, 112);
+    $this->SetTextColor(255);
+    $this->SetDrawColor(18, 15, 112);
+    $this->SetLineWidth(.3);
+    $this->SetFont('','');
+    // Cabecera
+    $w = array(95, 95);
+    for($i=0;$i<count($header);$i++)
+        $this->Cell($w[$i],7,$header[$i],1,0,'C',true);
+    $this->Ln();
+    // Restauración de colores y fuentes
+    $this->SetFillColor(224,235,255);
+    $this->SetTextColor(0);
+    $this->SetFont('');
+    // Datos
+    $fill = false;
+$link2=conecta();
+$queEmp=mysqli_query($link2, "SELECT * FROM tipo");
+while($row = mysqli_fetch_row($queEmp))
+            {
+        $this->Cell($w[0],6,number_format($row[0]),'LR',0,'C',$fill);
+            $this->Cell($w[1],6,$row[1],'LR',0,'C',$fill);
+        $this->Ln();
+        $fill = !$fill;
+    }
+    // Línea de cierre
+    $this->Cell(array_sum($w),0,'','T');
 }
-$titles = array(
-                'idtipo'=>'<b>ID</b>',
-                'nombre'=>'<b>Nombre categoria</b>',
-                //'servicios'=>'<b>servicio</b>',
-                //'nnit'=>'<b>NIT</b>',
-                //'observacion'=>'<b>Observaciones</b>'
+}
 
-                
-            );
-$options = array(
-                'shadeCol'=>array(0.9,0.9,0.9),
-                'xOrientation'=>'center',
-                'width'=>551
-            );
-
-$txttit = "<b> Categorias</b>\n";
-
-$pdf->ezText($txttit, 18);
-$pdf->ezTable($data, $titles, '', $options);
-$pdf->ezText("\n\n\n", 10);
-$pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10);
-$pdf->ezText("<b>Hora:</b> ".date("H:i:s")."\n\n", 10);
-$pdf->ezStream();
-
+$pdf = new PDF();
+// Títulos de las columnas
+$header = array('ID categoria', 'Nombre de categoria');
+$pdf->SetFont('Times','',12);
+$pdf->AddPage();
+$pdf->FancyTable($header);
+$pdf->Output();
 
 ?> 

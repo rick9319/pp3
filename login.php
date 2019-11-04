@@ -30,7 +30,7 @@ $nombreuser= $row[1];
 }
       $_SESSION["id"] = $id;
       $_SESSION["usuarioactual"] = $nombreuser;
-      
+      $updateestado = mysqli_query($link,"UPDATE registro SET activo=1 WHERE idusuario='$id'"); 
       //nombre del usuario logueado. 
       //Direccionamos a nuestra p�gina principal del sistema. 
 

@@ -21,6 +21,8 @@
     <link rel="stylesheet" type="text/css" href="assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" type="text/css" href="assets/libs/quill/dist/quill.snow.css">
     <link href="dist/css/style.min.css" rel="stylesheet">
+        <link href="assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+    <link href="assets/libs/jquery-steps/steps.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -230,7 +232,7 @@
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-blur-linear"></i></i><span class="hide-menu">Aulas </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-arrow-down-box"></i><span class="hide-menu"> Listado de aulas </span></a></li>
-                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Asignar </span></a></li>
+                                <li class="sidebar-item"><a  href="consultaaulas.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Asignar </span></a></li>
                                 <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Verificar asignaciones </span></a></li>                          
                             </ul>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-file-check"></i><span class="hide-menu">Solicitud</span></a></li>
@@ -278,13 +280,15 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
 
-        
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <form class="form-horizontal" action="insertarencuesta.php" method="post">
-                                <div class="card-body">
-                                       <div class="form-group row">
+        <div class="card">
+                    <div class="card-body wizard-content">
+                        <h4 class="card-title">Encuesta de satisfacción</h4>
+                        <h6 class="card-subtitle"></h6>
+                        <form id="example-form" action="insertarencuesta.php" class="m-t-40" method="POST">
+                            <div>
+                                <h3>SISTEMA Y FACULTAD</h3>
+                                <section>
+                                  <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">Del 1 al 5 donde 1 es muy malo y 5 es muy bueno, ¿ que tan eficiente considera el Sistema de Entradas y Salidas?</label>
                                         <div class="col-sm-9">
                                             <label class="btn btn-danger" >
@@ -313,7 +317,6 @@
                                  Muy bueno
                                   </div>
                                     </div>
-                                    <br>
                                     <div class="form-group row">
                                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">Seleccione la facultad/area a la que pertenece</label>
                                         <div class="col-sm-9">
@@ -343,7 +346,9 @@
                                            </label>
                                         </div>
                                     </div>
-                                    <br>
+                                </section>
+                                <h3>EDAD</h3>
+                                <section>
                                     <div class="form-group row">
                                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">Seleccione su rango de edad</label>
                                         <div class="col-sm-9">
@@ -370,7 +375,6 @@
                                            </label>
                                        </div>
                                     </div>
-                                    <br>
                                     <div class="form-group row">
                                          <label for="lname" class="col-sm-3 text-right control-label col-form-label">¿Considera necesaria la implementacion de una aplicacion web para el control de inventario y asignacion de equipos?</label>
                                           <div class="col-sm-9">
@@ -386,39 +390,28 @@
                                  
                                         </div>
                                     </div>
-                                    
-                                       <div class="form-group row">
+                                </section>
+                                <h3>NOMBRE APP</h3>
+                                <section>
+                                        <div class="form-group row">
                                         <label for="email1" class="col-sm-3 text-right control-label col-form-label">En caso de responder si a la pregunta anterior, por favor sugerir un nombre para la aplicacion</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="email1" placeholder="Nombre de la aplicacion web"  name="namepro">
                                         </div>
                                     </div>
-                                                 
-                                </div>
-                                <div class="border-top">
+                                  <div class="border-top">
                                     <div class="card-body">
                                         <input type="submit" value="Enviar encuesta" class="btn btn-info" name="ingresar">
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                                           
+                               
+                            </section>
+                                                   
+                            </div>
+                        </form>
                     </div>
-                   
                 </div>
-                <!-- editor -->
-
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
-            </div>
+          
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -467,6 +460,38 @@
     <script src="assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
     <script src="assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="assets/libs/quill/dist/quill.min.js"></script>
+    <script src="assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        // Basic Example with form
+    var form = $("#example-form");
+    form.validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password"
+            }
+        }
+    });
+     form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: function(event, currentIndex, newIndex) {
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onFinishing: function(event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function(event, currentIndex) {
+            alert("Submitted!");
+        }
+    });
+
+
+    </script>
     <script>
         //***********************************//
         // For select 2

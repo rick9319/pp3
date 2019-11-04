@@ -1,49 +1,70 @@
 <?php include("seguridad.php"); 
 require_once('dist/class.ezpdf.php');
-$pdf = new Cezpdf('a4');
-$pdf->selectFont('dist/fonts/courier.afm');
-$pdf->ezSetCmMargins(1,1,1.5,1.5);
  include("conexion.php");
-$link=conecta();
-$queEmp=mysqli_query($link, "SELECT * FROM registro");
-$totEmp = mysqli_num_rows($queEmp);
+require('dist/FPDF/fpdf.php');
 
-$ixx = 0;
-while($datatmp = mysqli_fetch_array($queEmp)) { 
-    $ixx = $ixx+1;
-    $data[] = array_merge($datatmp, array('num'=>$ixx));
+
+class PDF extends FPDF
+{
+
+
+// Tabla coloreada
+function FancyTable($header)
+{
+    $this->Image('assets/images/logo250.jpg',80,1,50);
+
+      $this->Ln(40);
+    $this->Cell(10);
+   
+    $this->Cell(170,10,' Usuarios registrados en sistema',0,0,'C');
+    
+    $this->Ln(20);
+
+    $this->SetFillColor(18, 15, 112);
+    $this->SetTextColor(255);
+    $this->SetDrawColor(18, 15, 112);
+    $this->SetLineWidth(.3);
+    $this->SetFont('','');
+    // Cabecera
+    $w = array(10, 25, 25, 25, 10, 15, 30,20,30);
+    for($i=0;$i<count($header);$i++)
+        $this->Cell($w[$i],7,$header[$i],1,0,'C',true);
+    $this->Ln();
+    // Restauración de colores y fuentes
+    $this->SetFillColor(224,235,255);
+    $this->SetTextColor(0);
+    $this->SetFont('');
+    // Datos
+    $fill = false;
+
+$link2=conecta();
+    $queEmp=mysqli_query($link2, "SELECT idusuario,nombre,apellidos, correl, idrol, nombreusuario,correo, fechar FROM registro");
+    while($row = mysqli_fetch_row($queEmp))
+            {
+        $this->Cell($w[0],6,number_format($row[0]),'LR',0,'C',$fill);
+        $this->Cell($w[1],6,$row[1],'LR',0,'C',$fill);
+        $this->Cell($w[2],6,$row[2],'LR',0,'C',$fill);
+        $this->Cell($w[3],6,number_format($row[3]),'LR',0,'C',$fill);
+         $this->Cell($w[4],6,number_format($row[4]),'LR',0,'C',$fill);
+          $this->Cell($w[5],6,$row[5],'LR',0,'C',$fill);
+           $this->Cell($w[6],6,$row[6],'LR',0,'C',$fill);  
+           $this->Cell($w[7],6,'Encriptado','LR',0,'C',$fill);         
+            $this->Cell($w[8],6,$row[7],'LR',0,'C',$fill);
+           
+        $this->Ln();
+        $fill = !$fill;
+    }
+    // Línea de cierre
+    $this->Cell(array_sum($w),0,'','T');
 }
-$titles = array(
-                'idusuario'=>'<b>ID</b>',
-                'nombre'=>'<b>Nombre</b>',
-                'apellidos'=>'<b>Apellidos</b>',
-                'correl'=>'<b>Numero de correlativo</b>',
-                'idrol'=>'<b>Rol</b>',
-                'nombreusuario'=>'<b>Nombre de usuario</b>',
-                'correo'=>'<b>Correo</b>',
-                'password'=>'<b>Contraseña</b>',
-                'fotor'=>'<b>Foto</b>',
-                 'fechar'=>'<b>Fecha de registro</b>',
-                //'servicios'=>'<b>servicio</b>',
-                //'nnit'=>'<b>NIT</b>',
-                //'observacion'=>'<b>Observaciones</b>'
+}
 
-                
-            );
-$options = array(
-                'shadeCol'=>array(0.9,0.9,0.9),
-                'xOrientation'=>'center',
-                'width'=>551
-            );
-
-$txttit = "<b> Usuarios registrados</b>\n";
-
-$pdf->ezText($txttit, 18);
-$pdf->ezTable($data, $titles, '', $options);
-$pdf->ezText("\n\n\n", 10);
-$pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10);
-$pdf->ezText("<b>Hora:</b> ".date("H:i:s")."\n\n", 10);
-$pdf->ezStream();
-
+$pdf = new PDF();
+// Títulos de las columnas
+$header = array('ID', 'Nombre', 'Apellidos','Correlativo','ID Rol','Usuario','Correo','Password','Fecha de registro');
+$pdf->SetFont('Times','',8);
+$pdf->AddPage();
+$pdf->FancyTable($header);
+$pdf->Output();
 
 ?> 

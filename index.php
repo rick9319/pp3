@@ -80,19 +80,19 @@
                     </div>
                     <div class="row m-t-20">
                         <!-- Form -->
-                        <form class="col-12" action="index.php">
+                        <form class="col-12" action="mailpassword.php" method="post">
                             <!-- email -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-warning text-white" id="basic-addon1"><i class="ti-email"></i></span>
                                 </div>
-                                <input type="password" class="form-control form-control-lg" placeholder="Correo electronico" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control form-control-lg" placeholder="Correo electronico" aria-label="Username" aria-describedby="basic-addon1" name="recu">
                             </div>
                             <!-- pwd -->
                             <div class="row m-t-20 p-t-20 border-top border-secondary">
                                 <div class="col-12">
                                     <a class="btn btn-success" href="#" id="to-login" name="action">Regresar</a>
-                                    <button class="btn btn-info float-right" type="button" name="action">Enviar</button>
+                                    <button class="btn btn-info float-right" type="submit" name="action">Enviar</button>
                                 </div>
                             </div>
                         </form>

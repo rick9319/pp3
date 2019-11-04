@@ -1,4 +1,27 @@
-<?php include("seguridad.php"); ?> 
+<?php include("seguridad.php"); 
+include("conexion.php");
+$link=conecta();
+$idusuario=$_SESSION["id"]; 
+$equiposuser=mysqli_query($link,"SELECT COUNT(idusuario) from equipo where idusuario='$idusuario'");
+while($equiposuserr = mysqli_fetch_row($equiposuser))
+            {
+              $ne=$equiposuserr[0];
+               
+            }
+$asignacionuser=mysqli_query($link,"SELECT COUNT(idusuario) from procesoasig where idusuario='$idusuario'");
+while($equiposusera = mysqli_fetch_row($asignacionuser))
+            {
+              $nea=$equiposusera[0];
+               
+            }
+$miembrouser=mysqli_query($link,"SELECT correl from registro where idusuario='$idusuario'");
+while($equiposuserf = mysqli_fetch_row($miembrouser))
+            {
+              $nef=$equiposuserf[0];
+               
+            }
+?> 
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -18,12 +41,28 @@
     <link rel="stylesheet" type="text/css" href="assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" type="text/css" href="assets/libs/quill/dist/quill.snow.css">
     <link href="dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <script type="text/javascript" src="assets/jquery.js"></script>
+    <script type="text/javascript" src="assets/jquery.maskedinput.js"></script>
+       <script>
+    function sololetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+</script>
 </head>
 
 <body>
@@ -43,7 +82,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
+       <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -90,7 +129,7 @@
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav float-left mr-auto">
+                   <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
                         <li class="nav-item d-none d-md-block"> <a class="nav-link waves-effect waves-dark" href="bienvenido.php"><i class="mdi mdi-arrow-left-bold font-24"></i></a>
                         <!-- ============================================================== -->
@@ -130,44 +169,35 @@
                                              <!-- Message -->
                                             <a href="javascript:void(0)" class="link border-top">
                                                 <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+                                                    <span class="btn btn-success btn-circle"><i class="ti-settings"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Event today</h5> 
-                                                        <span class="mail-desc">Just a reminder that event</span> 
+                                                        <h5 class="m-b-0">Equipos</h5> 
+                                                        <span class="mail-desc">Usted ha registrado: <?php echo $ne; ?> equipo/s </span> 
                                                     </div>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="javascript:void(0)" class="link border-top">
                                                 <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
+                                                    <span class="btn btn-info btn-circle"><i class="fa fa-link"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Settings</h5> 
-                                                        <span class="mail-desc">You can customize this template</span> 
+                                                        <h5 class="m-b-0">Asignacion</h5> 
+                                                        <span class="mail-desc">Ha realizado: <?php echo $nea; ?> asignacion/es </span> 
                                                     </div>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="javascript:void(0)" class="link border-top">
                                                 <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
+                                                    <span class="btn btn-danger btn-circle"><i class="ti-user"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Pavan kumar</h5> 
-                                                        <span class="mail-desc">Just see the my admin!</span> 
+                                                        <h5 class="m-b-0">Registro</h5> 
+                                                        <span class="mail-desc">Correlativo N°: <?php echo $nef;?> </span> 
                                                     </div>
                                                 </div>
                                             </a>
                                             <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Luanch Admin</h5> 
-                                                        <span class="mail-desc">Just see the my new admin!</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                    </div>
                                     </li>
                                 </ul>
                             </div>
@@ -212,10 +242,15 @@
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bienvenido.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="estadisticas.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Estadisticas</span></a></li>
+
                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Equipos </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar inventario </span></a></li>
-                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Ingresar </span></a></li>
+                                <li class="sidebar-item"><a href="consultaequipos.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar inventario </span></a></li>
+                                <li class="sidebar-item"><a href="registroequipo.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Ingresar </span></a></li>                                 
+                                <li class="sidebar-item"><a href="consultarcat.php" class="sidebar-link"><i class="mdi mdi-cube"></i><span class="hide-menu"> Verificar categorias </span></a></li>
+                                 <li class="sidebar-item"><a href="addcat.php" class="sidebar-link"><i class="mdi mdi-cube-outline"></i><span class="hide-menu"> Agregar categoria </span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="solicitud.php" aria-expanded="false"><i class="mdi mdi-file-check"></i><span class="hide-menu">Solicitud</span></a></li>
+                        </li>
                             </ul>
                         </li>
                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Usuarios </span></a>
@@ -226,12 +261,31 @@
                         </li>
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-blur-linear"></i></i><span class="hide-menu">Aulas </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-arrow-down-box"></i><span class="hide-menu"> Listado de aulas </span></a></li>
-                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Asignar </span></a></li>
-                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Verificar asignaciones </span></a></li>                          
+                                <li class="sidebar-item"><a href="consultaraula.php" class="sidebar-link"><i class="mdi mdi-arrow-down-box"></i><span class="hide-menu"> Listado de aulas </span></a></li>
+                                <li class="sidebar-item"><a href="addaula.php" class="sidebar-link"><i class="mdi mdi-plus-outline"></i><span class="hide-menu">Agregar aula </span></a></li>
+                                <li class="sidebar-item"><a href="asignacion.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Asignar </span></a></li>
+                                <li class="sidebar-item"><a href="consultaasig.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Verificar asignaciones </span></a></li>                          
                             </ul>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-file-check"></i><span class="hide-menu">Solicitud</span></a></li>
-                        </li>
+                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-database"></i></i><span class="hide-menu">Datos</span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="dataimport.php" class="sidebar-link"><i class="mdi mdi-debug-step-into"></i><span class="hide-menu"> Importar </span></a></li>
+                                <li class="sidebar-item"><a href="dataexport.php" class="sidebar-link"><i class="mdi mdi-debug-step-out"></i><span class="hide-menu"> Exportar </span></a></li>
+                            </ul>
+                           <?php
+                           $queryv=mysqli_query($link,"SELECT iduser FROM encuesta WHERE iduser='$idusuario'");
+                           $verif=0;
+                           while($rowv = mysqli_fetch_row($queryv))
+            {
+              $verif=$rowv[0];
+            }
+            if ($verif == $idusuario) {
+                          
+                           }
+                           else{
+                       echo "<li class='sidebar-item'> <a class='sidebar-link waves-effect waves-dark sidebar-link' href='encuesta.php' aria-expanded='false'><i class='mdi mdi-script'></i><span class='hide-menu'>Encuesta</span></a></li>                       
+                        </li>";
+                        }
+                         ?>
 
                     </ul>
                 </nav>
@@ -283,7 +337,7 @@
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">Nombre</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="fname" placeholder="Ej: Laptop, mobiliario, etc." required="" name="nombre">
+                                            <input type="text" class="form-control" id="fname" placeholder="Ej: Laptop, mobiliario, etc." required="" name="nombre" onKeypress="return sololetras(event)">
                                         </div>
                                     </div>                                                               
                                  
