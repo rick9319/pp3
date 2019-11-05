@@ -361,7 +361,7 @@ function checkTime(i) {
                                 <a class="dropdown-item"><i class="fas fa-user m-r-5 m-l-5"></i>¡Hola <?php echo $_SESSION["usuarioactual"] ?>!</a>
                                 <a class="dropdown-item" href="chat.php"><i class="fas fa-comments m-r-5 m-l-5"></i> Mensajes</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-info-circle m-r-5 m-l-5"></i> Mi informacion</a>
+                                <a class="dropdown-item" href="myinfo.php"><i class="fas fa-info-circle m-r-5 m-l-5"></i> Mi informacion</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="salir.php"><i class="fas fa-power-off m-r-5 m-l-5"></i> Salir</a>
                                 <div class="dropdown-divider"></div>
@@ -555,7 +555,7 @@ function checkTime(i) {
                         <div class="card card-hover">
                             <div  style="background-color:#ffd900" class="box text-center" > 
                                 <h1 class="font-light text-white"><i class="mdi mdi-alert"></i></h1>
-                                <h6><a href="" class="text-white">Acerca de</a></h6>
+                                <h6><a href="acercade.php" class="text-white">Acerca de</a></h6>
                             </div>
                         </div>
                     </div>

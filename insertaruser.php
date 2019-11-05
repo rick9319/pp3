@@ -35,10 +35,11 @@ if($rv == 0){
               while($idre=mysqli_fetch_row($idnuevo))
                {
 $idnew=$idre[0];
-}
 $destino="assets/fotos/".$idnew.".jpg";
 copy($ruta,$destino);
 $sqlfoto =mysqli_query($link,"UPDATE registro SET fotor='$destino' WHERE idusuario='$idnew'");
+}
+
               if ($result) {
              echo "   <script>
       swal({
@@ -54,6 +55,7 @@ $sqlfoto =mysqli_query($link,"UPDATE registro SET fotor='$destino' WHERE idusuar
   }
 }); 
 </script>";
+
            $tex=urlencode("Se ha ingresado un nuevo usuario:" .$nombreusuario);
            file_get_contents($website."/sendmessage?chat_id=1054005466&text=$tex");
   }

@@ -29,7 +29,7 @@ $result=mysqli_query($link, "UPDATE registro  SET nombre='$nombre', apellidos='$
 })
 .then((result) => {
   if (result.value) {
-    window.location='consultausuarios.php';
+    window.location='myinfo.php';
   }
 }); 
 </script>";
@@ -45,7 +45,7 @@ $result=mysqli_query($link, "UPDATE registro  SET nombre='$nombre', apellidos='$
 })
 .then((result) => {
   if (result.value) {
-    window.location='consultausuarios.php';
+    window.location='myinfo.php';
   }
 }); 
 </script>";

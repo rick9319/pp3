@@ -285,7 +285,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Calendar</h4>
+                        <h4 class="page-title">Calendario</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -314,25 +314,16 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                                 <div class="row">
                                     <div class="col-lg-3 border-right p-r-0">
                                         <div class="card-body border-bottom">
-                                            <h4 class="card-title m-t-10">Arastra el evento a la fecha deseada</h4>
+                                            <h4 class="card-title m-t-10">Calendario actual</h4>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div id="calendar-events" class="">
-                                                        <div class="calendar-events m-b-20" data-class="bg-info"><i class="fa fa-circle text-info m-r-10"></i>Event One</div>  
-                                                        <div class="calendar-events m-b-20" data-class="bg-info"><i class="fa fa-circle text-danger m-r-10"></i>Event One</div>   
-                                                        <div class="calendar-events m-b-20" data-class="bg-info"><i class="fa fa-circle text-warning m-r-10"></i>Event One</div>   
-                                                        <div class="calendar-events m-b-20" data-class="bg-info"><i class="fa fa-circle text-success m-r-10"></i>Event One</div>                                                        
+                                                                                                         
                                                     </div>
                                                     <!-- checkbox -->
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="drop-remove">
-                                                        <label class="custom-control-label" for="drop-remove">Remove after drop</label>
-                                                    </div>
-                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
-                                                            <i class="ti-plus"></i> Add New Event
-                                                        </a>
+                                           
                                                 </div>
                                             </div>
                                         </div>

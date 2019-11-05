@@ -291,18 +291,26 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form class="form-horizontal" action="inventf2.php" method="post">
+                            <form class="form-horizontal" action="inventf2fecha.php" method="post">
                                 <div class="card-body">
-                                    <h4 class="card-title">Reporte por fecha</h4>
+                                    <h4 class="card-title">Fecha inicial</h4>
                                     
                                        <div class="form-group row">
-                                   <input type="text" name="date1" id="date1" alt="date" class="IP_calendar" title="d/m/Y">
+                                   <input type="text" name="date1" id="date1" alt="date" class="IP_calendar" title="Y/m/d">
+                                    </div>
+                                 
+                                </div>
+                                 <div class="card-body">
+                                   
+                                     <h4 class="card-title">Fecha final</h4>
+                                       <div class="form-group row">
+                                   <input type="text" name="date2" id="date1" alt="date" class="IP_calendar" title="Y/m/d">
                                     </div>
                                  
                                 </div>
                                 <div class="border-top">
                                     <div class="card-body">
-                                        <input type="submit" value="Ingresar" class="btn btn-info" name="Enviar">
+                                        <input type="submit" value="Consultar" class="btn btn-info" name="Enviar">
                                     </div>
                                 </div>
                             </form>

@@ -331,7 +331,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                                         <thead>
                                         <?php
         
-            $result=mysqli_query($link,"SELECT idusuario, nombre,apellidos,correl,idrol,nombreusuario, correo, password, fotor,fechar FROM registro");
+            $result=mysqli_query($link,"SELECT idusuario, nombre,apellidos,correl,idrol,nombreusuario, correo, password,fechar FROM registro");
 
         ?>
            
@@ -343,7 +343,6 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
 <th>Nombre de usuario</th>
 <th>Correo</th>
 <th>Contraseña</th>
-<th>Foto</th>
 <th>Fecha Registro</th>
 <th colspan='2'>Opciones</th>
 </tr>
@@ -380,7 +379,7 @@ $id = $row[0];
              <td> <?php echo $row[6]?></td>
             <td><?php echo $row[7]?> </td>
                 <td> <?php echo $row[8]?> </td>
-               <td> <?php echo $row[9]?></td>
+     
 
    
 <td><?php echo"<a href ='editarusuario.php?idusuario=$id'><center><i class='fas fa-edit'></i>Editar</a></center>"; ?></td>

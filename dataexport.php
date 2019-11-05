@@ -362,7 +362,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                                      
                                     </div>
                                     <div>
-                                          <a href="cat1ex.php">  <button type="button" class="btn btn-danger"><i class="mdi mdi-package-up"></i><br>Salidas por rango de fecha</button></a>
+                                          <a href="fechasalida.php">  <button type="button" class="btn btn-danger"><i class="mdi mdi-package-up"></i><br>Salidas por rango de fecha</button></a>
                                      
                                     </div>
                                     </div></p>
@@ -394,11 +394,11 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                                      
                                     </div>
                                       <div>
-                                          <a href="fechaentrada.php">  <button type="button" class="btn btn-success"><i class="mdi mdi-server"></i><br>Entradas por rango de fecha</button></a>
+                                          <a href="fechaentradaexcel.php">  <button type="button" class="btn btn-success"><i class="mdi mdi-server"></i><br>Entradas por rango de fecha</button></a>
                                      
                                     </div>
                                     <div>
-                                          <a href="cat1ex.php">  <button type="button" class="btn btn-success"><i class="mdi mdi-package-up"></i><br>Salidas por rango de fecha</button></a>
+                                          <a href="fechasalidaexcel.php">  <button type="button" class="btn btn-success"><i class="mdi mdi-package-up"></i><br>Salidas por rango de fecha</button></a>
                                      
                                     </div>
                                     </div></p>

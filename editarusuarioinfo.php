@@ -1,26 +1,26 @@
-<?php include("seguridad.php");
-include("conexion.php"); 
-$link=conecta();
-$idusuario=$_SESSION["id"]; 
-$equiposuser=mysqli_query($link,"SELECT COUNT(idusuario) from equipo where idusuario='$idusuario'");
-while($equiposuserr = mysqli_fetch_row($equiposuser))
-            {
-              $ne=$equiposuserr[0];
-               
-            }
-$asignacionuser=mysqli_query($link,"SELECT COUNT(idusuario) from procesoasig where idusuario='$idusuario'");
-while($equiposusera = mysqli_fetch_row($asignacionuser))
-            {
-              $nea=$equiposusera[0];
-               
-            }
-$miembrouser=mysqli_query($link,"SELECT correl from registro where idusuario='$idusuario'");
-while($equiposuserf = mysqli_fetch_row($miembrouser))
-            {
-              $nef=$equiposuserf[0];
-               
-            }
- ?> 
+<?php
+  include("conexion.php");  
+  include("seguridad.php");
+  $link=conecta();
+$id =$_REQUEST['idusuario'];
+$result = mysqli_query($link, "SELECT nombre,apellidos,password,correl,idrol,nombreusuario,correo FROM registro WHERE idusuario=$id") or die(mysql_error());
+    $datosta = mysqli_fetch_row($result);
+if (!$result) 
+        {
+        die("Error: Data not found..");
+        }
+         
+                $nombre=$datosta[0] ;
+                $apellidos= $datosta[1] ;                   
+                $password=$datosta[2] ;
+                $correl=$datosta[3] ;
+                $idrol=$datosta[4] ;
+                $nombreusuario=$datosta[5] ;
+                $correo=$datosta[6] ;
+
+
+
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -33,55 +33,19 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-       <title>SES - UEES</title>
+    <title>SES - UEES</title>
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="assets/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="assets/libs/jquery-minicolors/jquery.minicolors.css">
     <link rel="stylesheet" type="text/css" href="assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" type="text/css" href="assets/libs/quill/dist/quill.snow.css">
     <link href="dist/css/style.min.css" rel="stylesheet">
-    <script type="text/javascript" src="assets/jquery.js"></script>
-    <script type="text/javascript" src="assets/jquery.maskedinput.js"></script>
-<script>
-        function solonumeros(e){
-           key = e.keyCode || e.which;
-           tecla = String.fromCharCode(key).toLowerCase();
-           letras = "0123456789";
-           especiales = "8-37-39-46";
-    
-           tecla_especial = false
-           for(var i in especiales){
-                if(key == especiales[i]){
-                    tecla_especial = true;
-                    break;
-                }
-            }
-    
-            if(letras.indexOf(tecla)==-1 && !tecla_especial){
-                return false;
-            }
-        }
-    </script>
-    <script>
-    function sololetras(e){
-       key = e.keyCode || e.which;
-       tecla = String.fromCharCode(key).toLowerCase();
-       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
-       especiales = "8-37-39-46";
-
-       tecla_especial = false
-       for(var i in especiales){
-            if(key == especiales[i]){
-                tecla_especial = true;
-                break;
-            }
-        }
-
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            return false;
-        }
-    }
-</script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body>
@@ -101,7 +65,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-         <header class="topbar" data-navbarbg="skin5">
+       <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -150,6 +114,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                        <li class="nav-item d-none d-md-block"> <a class="nav-link waves-effect waves-dark" href="consultausuarios.php"><i class="mdi mdi-arrow-left-bold font-24"></i></a>
                         <!-- ============================================================== -->
                         <!-- create new -->
                         <!-- ============================================================== -->
@@ -157,8 +122,10 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item search-box"> 
-
+                        <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
                         </li>
                     </ul>
                     <!-- ============================================================== -->
@@ -185,35 +152,44 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                                              <!-- Message -->
                                             <a href="javascript:void(0)" class="link border-top">
                                                 <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-success btn-circle"><i class="ti-settings"></i></span>
+                                                    <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Equipos</h5> 
-                                                        <span class="mail-desc">Usted ha registrado: <?php echo $ne; ?> equipo/s </span> 
+                                                        <h5 class="m-b-0">Event today</h5> 
+                                                        <span class="mail-desc">Just a reminder that event</span> 
                                                     </div>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="javascript:void(0)" class="link border-top">
                                                 <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-info btn-circle"><i class="fa fa-link"></i></span>
+                                                    <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Asignacion</h5> 
-                                                        <span class="mail-desc">Ha realizado: <?php echo $nea; ?> asignacion/es </span> 
+                                                        <h5 class="m-b-0">Settings</h5> 
+                                                        <span class="mail-desc">You can customize this template</span> 
                                                     </div>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="javascript:void(0)" class="link border-top">
                                                 <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-danger btn-circle"><i class="ti-user"></i></span>
+                                                    <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
                                                     <div class="m-l-10">
-                                                        <h5 class="m-b-0">Registro</h5> 
-                                                        <span class="mail-desc">Correlativo N°: <?php echo $nef;?> </span> 
+                                                        <h5 class="m-b-0">Pavan kumar</h5> 
+                                                        <span class="mail-desc">Just see the my admin!</span> 
                                                     </div>
                                                 </div>
                                             </a>
                                             <!-- Message -->
-                                    </div>
+                                            <a href="javascript:void(0)" class="link border-top">
+                                                <div class="d-flex no-block align-items-center p-10">
+                                                    <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+                                                    <div class="m-l-10">
+                                                        <h5 class="m-b-0">Luanch Admin</h5> 
+                                                        <span class="mail-desc">Just see the my new admin!</span> 
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -229,7 +205,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/agent.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <a class="dropdown-item"><i class="fas fa-user m-r-5 m-l-5"></i> <?php echo $_SESSION["usuarioactual"] ?></a>
-                                <a class="dropdown-item" href="chat.php"><i class="fas fa-comments m-r-5 m-l-5"></i> Mensajes</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-comments m-r-5 m-l-5"></i> Mensajes</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-info-circle m-r-5 m-l-5"></i> Mi informacion</a>
                                 <div class="dropdown-divider"></div>
@@ -258,15 +234,10 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bienvenido.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="estadisticas.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Estadisticas</span></a></li>
-
                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Equipos </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="consultaequipos.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar entradas </span></a></li>
-                                <li class="sidebar-item"><a href="registroequipo.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar entrada </span></a></li>
-                                <li class="sidebar-item"><a href="addcat.php" class="sidebar-link"><i class="mdi mdi-cube-outline"></i><span class="hide-menu"> Agregar categoria </span></a></li>                                 
-                                <li class="sidebar-item"><a href="consultarcat.php" class="sidebar-link"><i class="mdi mdi-cube"></i><span class="hide-menu"> Verificar categorias </span></a></li>                                 
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="solicitud.php" aria-expanded="false"><i class="mdi mdi-file-check"></i><span class="hide-menu">Solicitud</span></a></li>
-                        </li>
+                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar inventario </span></a></li>
+                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Ingresar </span></a></li>
                             </ul>
                         </li>
                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Usuarios </span></a>
@@ -277,40 +248,13 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                         </li>
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-blur-linear"></i></i><span class="hide-menu">Aulas </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="consultaraula.php" class="sidebar-link"><i class="mdi mdi-arrow-down-box"></i><span class="hide-menu"> Listado de aulas </span></a></li>
-                                <li class="sidebar-item"><a href="addaula.php" class="sidebar-link"><i class="mdi mdi-plus-outline"></i><span class="hide-menu">Agregar aula </span></a></li>
-                                <li class="sidebar-item"><a href="asignacion.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar salidas </span></a></li>
-                                <li class="sidebar-item"><a href="consultaasig.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar salidas </span></a></li>                          
+                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-arrow-down-box"></i><span class="hide-menu"> Listado de aulas </span></a></li>
+                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Asignar </span></a></li>
+                                <li class="sidebar-item"><a  href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Verificar asignaciones </span></a></li>                          
                             </ul>
-                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-database"></i></i><span class="hide-menu">Datos</span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="dataimport.php" class="sidebar-link"><i class="mdi mdi-debug-step-into"></i><span class="hide-menu"> Importar </span></a></li>
-                                <li class="sidebar-item"><a href="dataexport.php" class="sidebar-link"><i class="mdi mdi-debug-step-out"></i><span class="hide-menu"> Exportar </span></a></li>
-                            </ul>
-                                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-lock"></i><span class="hide-menu">Firma digital </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="registrohuella.php" class="sidebar-link"><i class="mdi mdi-lock-outline"></i><span class="hide-menu"> Agregar </span></a></li>
-                                <li class="sidebar-item"><a href="modificarfirma.php" class="sidebar-link"><i class="mdi mdi-lock-open-outline"></i><span class="hide-menu"> Modificar </span></a></li>
-                            </ul>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-file-check"></i><span class="hide-menu">Solicitud</span></a></li>
                         </li>
-                           <?php
-                           $queryv=mysqli_query($link,"SELECT iduser FROM encuesta WHERE iduser='$idusuario'");
-                           $verif=0;
-                           while($rowv = mysqli_fetch_row($queryv))
-            {
-              $verif=$rowv[0];
-            }
-            if ($verif == $idusuario) {
-                          
-                           }
-                           else{
-                       echo "<li class='sidebar-item'> <a class='sidebar-link waves-effect waves-dark sidebar-link' href='encuesta.php' aria-expanded='false'><i class='mdi mdi-script'></i><span class='hide-menu'>Encuesta</span></a></li>                       
-                        </li>";
-                        }
-                         ?>
-                         <br>
-                    
-                       
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -330,12 +274,13 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Registro de usuarios</h4>
+                        
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="bienvenido.php">Inicio</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Registro</li>
+                                    <li class="breadcrumb-item"><a href="consultausuarios.php">Consulta usuarios</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Editar</li>
                                 </ol>
                             </nav>
                         </div>
@@ -355,77 +300,79 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <form class="form-horizontal" action="insertaruser.php" method="post"  enctype="multipart/form-data">
+                            <form class="form-horizontal" action="actualizaruserinfo.php" method="post">
                                 <div class="card-body">
-                                    <h4 class="card-title">Informacion personal</h4>
+                                    <h4 class="card-title">Editar información de : <?php echo $apellidos ?>, <?php echo $nombre ?></h4>
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">Nombre</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="fname" placeholder="Ingrese el nombre" required="" name="nombre" onKeypress="return sololetras(event)" >
+                                            <input type="hidden" required="" value="<?php echo $id ?>" name="id" >
+                                            <input type="text" class="form-control" id="fname" required="" name="nombre" value="<?php echo $nombre ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">Apellidos</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="lname" placeholder="Ingrese los apellidos"required="" name="apellidos" onKeypress="return sololetras(event)">
-                                        </div>
-                                    </div>
-                                     <div class="form-group row">
-                                        <label for="email1" class="col-sm-3 text-right control-label col-form-label">Nombre de usuario</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="email1" placeholder="Nombre de usuario" required="" name="nombreusuario">
+                                            <input type="text" class="form-control" id="lname"required="" name="apellidos"value="<?php echo $apellidos ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="lname" class="col-sm-3 text-right control-label col-form-label">Contraseña</label>
                                         <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="lname" placeholder="Ingresa la contraseña"required="" name="contraseña">
+                                            <input type="password" class="form-control" id="lname" required="" name="contraseña" value="<?php echo $password ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="email1" class="col-sm-3 text-right control-label col-form-label">Correlativo de empleado</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="email1" placeholder="Correlativo de empleado UEES" required="" name="correl" onKeyPress="return solonumeros(event)">
+                                            <input type="text" class="form-control" id="email1" placeholder="Correlativo de empleado UEES" required="" name="correl" value="<?php echo $correl ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Rol</label>
                                         <div class="col-sm-9">
                                         <select class="select form-control custom-select" name="rol" style="width: 100%; height:36px;">
-<?php  $queryselect=mysqli_query($link,"SELECT DISTINCT idrol,descripcion FROM rol");
+<?php 
+ $queryselect=mysqli_query($link,"SELECT DISTINCT idrol,descripcion FROM rol");
             while($row = mysqli_fetch_row($queryselect))
             {
+                if($idrol == $row[0])
+                {
                                  ?>
-                                <option value=<?php echo $row[0]?>><?php echo $row[1]?></option>
-                                        <?php }
+                                <option selected value=<?php echo $row[0]?>><?php echo $row[1]?></option>
+  <?php  
+}
+else {
+    ?>
+    <option value=<?php echo $row[0]?>><?php echo $row[1]?></option>
+
+                                        <?php 
+                                    }
+                                }
                                         ?>
                                              </select>
                                         </div>
                                     </div>
-                                      
+                                       <div class="form-group row">
+                                        <label for="email1" class="col-sm-3 text-right control-label col-form-label">Nombre de usuario</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="email1" placeholder="Nombre de usuario" required="" name="nombreusuario" value="<?php echo $nombreusuario ?>">
+                                        </div>
+                                    </div>
                                        <div class="form-group row">
                                         <label for="email1" class="col-sm-3 text-right control-label col-form-label">Correo</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="email1" placeholder="Correo electronico" name="correo">
+                                            <input type="text" class="form-control" id="email1" placeholder="Correo electronico" name="correo" value="<?php echo $correo?>">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="email1" class="col-sm-3 text-right control-label col-form-label">Foto de perfil</label>
-                                        <div class="col-sm-9">
-                                             
-                                           <input type="file" id="foto" accept=".jpg" name="foto">
-                                 
-                                            
-                                        </div>
-                                    </div>
-                                    
                                  
                                 </div>
                                 <div class="border-top">
                                     <div class="card-body">
-                                        <input type="submit" value="Ingresar" class="btn btn-info" name="ingresar">
-                                    </div>
+                                      <input type="submit" value="Editar" class="btn btn-info" name="ingresar">
+                                   </div>
                                 </div>
+
                             </form>
                         </div>
                                            
@@ -451,7 +398,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-    
+           
             <footer class="footer text-center">
                 Universidad Evangelica de El Salvador. Todos los derechos reservados 2019.
             </footer>
