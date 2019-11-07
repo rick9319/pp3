@@ -19,6 +19,23 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<style type="text/css">
+#center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+</style>
+<style type="text/css">
+#centert {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+</style>
+
 </head>
 
 <body>
@@ -39,25 +56,22 @@
         <!-- Login box.scss -->
         <!-- ============================================================== -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-info">
-            <div class="auth-box bg-white border-top border-secondary">
-                <div id="loginform">
+            <div class="auth-box border-top border-secondary" style="background-color: #fdd506">
+                <div id="loginform" style="background-color: #fdd506">                  
                     <div class="text-center p-t-20 p-b-20">
-                        <span class="db"><img src="assets/images/logo250.jpg" alt="logo" /></span>
+                       <img src="assets/images/logouees.png" id="centert">
                     </div>
-                    <!-- Form -->
+                    <br>
                     <form class="form-horizontal m-t-20" id="loginform" action="login.php" method="POST">
                         <div class="row p-b-30">
                             <div class="col-12">
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
-                                    </div>
+                                  
                                     <input type="text" class="form-control form-control-lg" placeholder="Nombre de usuario" aria-label="Username" aria-describedby="basic-addon1" required="" name="user">
                                 </div>
+                                <br>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
-                                    </div>
+                                   
                                     <input type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required="" name="password">
                                 </div>
                             </div>
@@ -65,9 +79,9 @@
                         <div class="row border-top border-secondary">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <div class="p-t-20">
-                                        <button class="btn btn-danger" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> ¿Olvidaste la contraseña?</button>
-                                        <button class="btn btn-info float-right" type="submit">Ingresar</button>
+                                    <div class="p-t-20" id="center">
+                                        <!--<button class="btn btn-danger" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> ¿Olvidaste la contraseña?</button>-->
+                                     <button class="btn btn-info" type="submit"><i class="mdi mdi-account"></i>Iniciar sesion</button>
                                     </div>
                                 </div>
                             </div>

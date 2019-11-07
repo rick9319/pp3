@@ -9,6 +9,7 @@
 include("conexion.php");
 include("seguridad.php");
 $link=conecta();
+$idusuario=$_SESSION["id"]; 
 $id=$_POST['id'] ;
 $nombre=$_POST['nombre'] ;
 $result=mysqli_query($link, "UPDATE aula  SET aula='$nombre' WHERE idaula='$id'");
@@ -27,7 +28,17 @@ $result=mysqli_query($link, "UPDATE aula  SET aula='$nombre' WHERE idaula='$id'"
   }
 }); 
 </script>";
-	}
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idusuario'");
+while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("El aula con ID #".$id. " se ha modificado correctamente, el nuevo nombre del aula es: " .$nombre);
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
+
+  }
 	else{
 			echo "   <script>
       swal({

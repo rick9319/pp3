@@ -1,0 +1,3 @@
+$botToken="957432837:AAGf5zOwEH7nRXoRPUYLyokhwz7FqZSG19s";
+$website="https://api.telegram.org/bot".$botToken;
+ID CHAT 1054005466

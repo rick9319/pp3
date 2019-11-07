@@ -7,10 +7,9 @@
 </html>
 <?php
 include("conexion.php");
-include("seguridad.php"); 
-$botToken="957432837:AAGf5zOwEH7nRXoRPUYLyokhwz7FqZSG19s";
-$website="https://api.telegram.org/bot".$botToken;
+include("seguridad.php");
 $link=conecta();
+$idusuario=$_SESSION["id"]; 
 $nombre=$_POST['nombre'] ;
 $apellidos= $_POST['apellidos'] ;					
 $correo=$_POST['correo'] ;
@@ -55,9 +54,15 @@ $sqlfoto =mysqli_query($link,"UPDATE registro SET fotor='$destino' WHERE idusuar
   }
 }); 
 </script>";
-
-           $tex=urlencode("Se ha ingresado un nuevo usuario:" .$nombreusuario);
-           file_get_contents($website."/sendmessage?chat_id=1054005466&text=$tex");
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idusuario'");
+      while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("Un nuevo usuario ha sido ingresado al sistema. Nombre: ".$nombre. ". Apellidos: ".$apellidos.". Correlativo: ".$correl. ". Nombre de usuario: ".$nombreusuario );
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
   }
 }
 else{

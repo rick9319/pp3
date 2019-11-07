@@ -1,4 +1,4 @@
-<?php include("seguridad.php");
+<?php include("seguridad.php"); 
  include("conexion.php");
 $link=conecta();
 $idusuario=$_SESSION["id"]; 
@@ -20,7 +20,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
               $nef=$equiposuserf[0];
                
             }
- ?> 
+?> 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -33,15 +33,29 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>SES - UEES</title>
+       <title>SES - UEES</title>
     <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/libs/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/libs/jquery-minicolors/jquery.minicolors.css">
+    <link rel="stylesheet" type="text/css" href="assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/libs/quill/dist/quill.snow.css">
     <link href="dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+<style type="text/css">
+#center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
+</style>
+<style type="text/css">
+#centert {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
 </head>
 
 <body>
@@ -61,7 +75,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-       <header class="topbar" data-navbarbg="skin5">
+ <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -108,18 +122,10 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav float-left mr-auto">
+                       <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                        <!-- ============================================================== -->
-                        <!-- create new -->
-                        <!-- ============================================================== -->
-                   
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item search-box"> 
+                         <li class="nav-item d-none d-md-block"> <a class="nav-link waves-effect waves-dark" href="bienvenido.php"><i class="mdi mdi-arrow-left-bold font-24"></i></a>
 
-                        </li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -186,12 +192,31 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/agent.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<?php
+                                $image_list = glob("./assets/fotos/$idusuario*.jpg");
+                                foreach($image_list as $image){
+                                    //echo $image;
+                                ?>
+                                <img src="<?php echo $image; ?>" alt="user" class="rounded-circle" width="40" ></a>
+                                <?php
+                                }
+                                ?>                              
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item"><i class="fas fa-user m-r-5 m-l-5"></i> <?php echo $_SESSION["usuarioactual"] ?></a>
-                                <a class="dropdown-item" href="chat.php"><i class="fas fa-comments m-r-5 m-l-5"></i> Mensajes</a>
+                                <a class="dropdown-item"><i class="fas fa-user m-r-5 m-l-5"></i>¡Hola <?php echo $_SESSION["usuarioactual"] ?>!</a>
+                                <a class="dropdown-item" href="bottel.php"><i class="fab fa-telegram m-r-5 m-l-5"></i>
+<?php
+                           $querbot=mysqli_query($link,"SELECT idusuario FROM botrecord  WHERE idusuario='$idusuario'");
+                           $checkbot = mysqli_num_rows($querbot); 
+            if ($checkbot >0 ) {
+                          echo "Modificar notificaciones";
+                           }
+                           else{
+                       echo "Activar notificaciones";
+                        }
+                         ?></a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-info-circle m-r-5 m-l-5"></i> Mi informacion</a>
+                                <a class="dropdown-item" href="myinfo.php"><i class="fas fa-info-circle m-r-5 m-l-5"></i> Mi informacion</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="salir.php"><i class="fas fa-power-off m-r-5 m-l-5"></i> Salir</a>
                                 <div class="dropdown-divider"></div>
@@ -217,24 +242,23 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bienvenido.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="estadisticas.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Estadisticas</span></a></li>
-
-                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Equipos </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="consultaequipos.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar entradas </span></a></li>
-                                <li class="sidebar-item"><a href="registroequipo.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar entrada </span></a></li>
-                                <li class="sidebar-item"><a href="addcat.php" class="sidebar-link"><i class="mdi mdi-cube-outline"></i><span class="hide-menu"> Agregar categoria </span></a></li>                                 
-                                <li class="sidebar-item"><a href="consultarcat.php" class="sidebar-link"><i class="mdi mdi-cube"></i><span class="hide-menu"> Verificar categorias </span></a></li>                                 
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="solicitud.php" aria-expanded="false"><i class="mdi mdi-file-check"></i><span class="hide-menu">Solicitud</span></a></li>
-                        </li>
-                            </ul>
-                        </li>
                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Usuarios </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="consultausuarios.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar </span></a></li>
                                 <li class="sidebar-item"><a href="registrouserbasic.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Agregar </span></a></li>
                             </ul>
                         </li>
+                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Equipos </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="consultaequipos.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar entradas </span></a></li>
+                                <li class="sidebar-item"><a href="registroequipo.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar entrada </span></a></li>
+                                <li class="sidebar-item"><a href="addcat.php" class="sidebar-link"><i class="mdi mdi-cube-outline"></i><span class="hide-menu"> Agregar categoria </span></a></li>                                 
+                                <li class="sidebar-item"><a href="consultarcat.php" class="sidebar-link"><i class="mdi mdi-cube"></i><span class="hide-menu"> Verificar categorias </span></a></li>                                
+                           
+                        </li>
+                            </ul>
+                        </li>
+                        
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-blur-linear"></i></i><span class="hide-menu">Aulas </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="consultaraula.php" class="sidebar-link"><i class="mdi mdi-arrow-down-box"></i><span class="hide-menu"> Listado de aulas </span></a></li>
@@ -242,17 +266,21 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                                 <li class="sidebar-item"><a href="asignacion.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar salidas </span></a></li>
                                 <li class="sidebar-item"><a href="consultaasig.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar salidas </span></a></li>                          
                             </ul>
+
+                           
                              <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-database"></i></i><span class="hide-menu">Datos</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="dataimport.php" class="sidebar-link"><i class="mdi mdi-debug-step-into"></i><span class="hide-menu"> Importar </span></a></li>
                                 <li class="sidebar-item"><a href="dataexport.php" class="sidebar-link"><i class="mdi mdi-debug-step-out"></i><span class="hide-menu"> Exportar </span></a></li>
                             </ul>
+
                                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-lock"></i><span class="hide-menu">Firma digital </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="registrohuella.php" class="sidebar-link"><i class="mdi mdi-lock-outline"></i><span class="hide-menu"> Agregar </span></a></li>
                                 <li class="sidebar-item"><a href="modificarfirma.php" class="sidebar-link"><i class="mdi mdi-lock-open-outline"></i><span class="hide-menu"> Modificar </span></a></li>
                             </ul>
                         </li>
+                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="estadisticas.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Estadisticas</span></a></li>
                            <?php
                            $queryv=mysqli_query($link,"SELECT iduser FROM encuesta WHERE iduser='$idusuario'");
                            $verif=0;
@@ -268,7 +296,7 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                         </li>";
                         }
                          ?>
-                         <br>
+        
                     
                        
                     </ul>
@@ -290,12 +318,12 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Mensajes</h4>
+                        <h4 class="page-title">Activar notificaciones remotas</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Chat</li>
+                                    <li class="breadcrumb-item"><a href="bienvenido.php">Inicio</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Notificaciones</li>
                                 </ol>
                             </nav>
                         </div>
@@ -316,71 +344,70 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Chat con</h4>
-                                <div class="chat-box scrollable" style="height:475px;">
-                                    <!--chat Row -->
-                                    <ul class="chat-list">
-                                        <!--chat Row -->
-                                        <li class="chat-item">
-                                            <div class="chat-img"><img src="assets/images/users/1.jpg" alt="user"></div>
-                                            <div class="chat-content">
-                                                <h6 class="font-medium">James Anderson</h6>
-                                                <div class="box bg-light-info">Lorem Ipsum is simply dummy text of the printing &amp; type setting industry.</div>
-                                            </div>
-                                            <div class="chat-time">10:56 am</div>
-                                        </li>
-                                        <!--chat Row -->
-                                        <li class="chat-item">
-                                            <div class="chat-img"><img src="assets/images/users/2.jpg" alt="user"></div>
-                                            <div class="chat-content">
-                                                <h6 class="font-medium">Bianca Doe</h6>
-                                                <div class="box bg-light-info">It’s Great opportunity to work.</div>
-                                            </div>
-                                            <div class="chat-time">10:57 am</div>
-                                        </li>
-                                        <!--chat Row -->
-                                        <li class="odd chat-item">
-                                            <div class="chat-content">
-                                                <div class="box bg-light-inverse">I would love to join the team.</div>
-                                                <br>
-                                            </div>
-                                        </li>
-                                        <!--chat Row -->
-                                        <li class="odd chat-item">
-                                            <div class="chat-content">
-                                                <div class="box bg-light-inverse">Whats budget of the new project.</div>
-                                                <br>
-                                            </div>
-                                            <div class="chat-time">10:59 am</div>
-                                        </li>
-                                        <!--chat Row -->
-                                        <li class="chat-item">
-                                            <div class="chat-img"><img src="../../assets/images/users/3.jpg" alt="user"></div>
-                                            <div class="chat-content">
-                                                <h6 class="font-medium">Angelina Rhodes</h6>
-                                                <div class="box bg-light-info">Well we have good budget for the project</div>
-                                            </div>
-                                            <div class="chat-time">11:00 am</div>
-                                        </li>
-                                        <!--chat Row -->
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body border-top">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <div class="input-field m-t-0 m-b-0">
-                                            <textarea id="textarea1" placeholder="Type and enter" class="form-control border-0"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <a class="btn-circle btn-lg btn-cyan float-right text-white" href="javascript:void(0)"><i class="fas fa-paper-plane"></i></a>
-                                    </div>
-                                </div>
+                                <img src="assets/images/logot.png" id="center">
+                                 <h1 id="centert">Notificaciones por Telegram</h1>
                             </div>
                         </div>
                     </div>
+                     <div class="col-12">
+                      <div class="card">
+                         <form class="form-horizontal" action="botconfig.php" method="post">
+                            <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="email1" class="col-sm-3 text-right control-label col-form-label">Ingresa el token de bot: </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="email1" placeholder="Ej: SASFAxFghjsoO" name="bot">
+                                        </div>
+                                    </div>
+                                        <div class="form-group row">
+                                        <label for="email1" class="col-sm-3 text-right control-label col-form-label">Ingresa el ID de chat: </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="email1" placeholder="35321244" name="chat">
+                                        </div>
+                                    </div>
+                            </div>
+                                <div class="border-top">
+                                    <div class="card-body" align="center">
+                                        <input type="submit" value="Activar notificaciones" class="btn btn-info" name="ingresar">
+                                    </div>
+                                </div>
+                        </div>
                 </div>
+                    <div class="col-12">
+                      <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title" align="center">Como configurar notificaciones via Telegram</h2>
+                                <br>
+                                <p align="justify">Pasos a seguir
+Es muy fácil de hacer ya que Telegram se ha esforzado para que así sea. Mediante un BotFather tendremos que crear nuestro bot.</p>
+
+<p align="justify">Lo que primero que tienes que hacer es dar constancia a Telegram de que quieres crear un nuevo Bot. Para ello tenemos que mandar un mensaje al BotFather (@BotFather), en concreto el de «/newbot».
+Posteriormente el propio bot te preguntará por el nombre que quieres para tu bot. Importante, tiene que acabar en Bot. Ejemplo: EalBot o Eal_Bot.</p>
+<p align="justify">Si todo está correcto, te verificará la creación de tu Bot.
+Ahora es el turno de configurar la privacidad de tu bot. Escribimos «/setprivacy» y posteriormente, el nombre de tu bot mencionándolo por su nombre «@Bot». El BotFather te responderá con las opciones y puedes hacer que sólo atienda a mensajes que lo mencionen o que empiecen por un «/» con el modo ENABLED. O recibir cualquier mensaje del grupo si marcamos la opción DISABLED.
+Bot creado y listo para personalizar.</p>
+<p>Una vez añadido podemos usar una serie de comandos:</p>  
+
+/newbot – para crear un nuevo bot</p>
+<p>/token – para generar el token</p>
+<p>/revoke – revocar acceso al token</p>
+<p>/setname – cambiar el nombre del bot</p>
+<p>/setdescription – cambiar la descripción del bot</p>
+<p>/setabouttext – cambiar el texto “about me”</p>
+<p>/setuserpic – cambiar la foto de perfil</p>
+<p>/setinline – cambiar los ajustes de “inline” (lo que permite que el bot interactúe desde cualquier chat), perfecto para bots que participen en grupos (como bots de Trivial y cosas así). Más información aquí</p>
+<p>/setinlinefeedback – relacionado con lo anterior y que no nos interesa por ahora</p>
+<p>/setcommands – establece los comandos del bot</p>
+<p>/setjoingroups – determina si el bot se puede o no unir a grupos</p>
+<p>/setprivacy – determina los mensajes que verá nuestro bot si se une a un grupo</p>
+<p>/deletebot – eliminar un bot</p>
+<p>/cancel – cancelar lo que estemos haciendo</p>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- editor -->
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -398,8 +425,9 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
+    
             <footer class="footer text-center">
-                All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+                Universidad Evangelica de El Salvador. Todos los derechos reservados 2019.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -428,6 +456,60 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
     <script src="dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="dist/js/custom.min.js"></script>
+    <!-- This Page JS -->
+    <script src="assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="dist/js/pages/mask/mask.init.js"></script>
+    <script src="assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="assets/libs/jquery-asColor/dist/jquery-asColor.min.js"></script>
+    <script src="assets/libs/jquery-asGradient/dist/jquery-asGradient.js"></script>
+    <script src="assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js"></script>
+    <script src="assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
+    <script src="assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="assets/libs/quill/dist/quill.min.js"></script>
+    <script>
+        //***********************************//
+        // For select 2
+        //***********************************//
+        $(".select2").select2();
+
+        /*colorpicker*/
+        $('.demo').each(function() {
+        //
+        // Dear reader, it's actually very easy to initialize MiniColors. For example:
+        //
+        //  $(selector).minicolors();
+        //
+        // The way I've done it below is just for the demo, so don't get confused
+        // by it. Also, data- attributes aren't supported at this time...they're
+        // only used for this demo.
+        //
+        $(this).minicolors({
+                control: $(this).attr('data-control') || 'hue',
+                position: $(this).attr('data-position') || 'bottom left',
+
+                change: function(value, opacity) {
+                    if (!value) return;
+                    if (opacity) value += ', ' + opacity;
+                    if (typeof console === 'object') {
+                        console.log(value);
+                    }
+                },
+                theme: 'bootstrap'
+            });
+
+        });
+        /*datwpicker*/
+        jQuery('.mydatepicker').datepicker();
+        jQuery('#datepicker-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+    </script>
 </body>
 
 </html>

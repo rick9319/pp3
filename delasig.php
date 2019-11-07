@@ -7,7 +7,8 @@
 </html>
 <?php
   include("conexion.php"); 
-  include("seguridad.php");   
+  include("seguridad.php");
+  $idusuario=$_SESSION["id"];    
 $link=conecta();
 $idasig =$_REQUEST['idasig'];
 mysqli_query($link, "DELETE FROM procesoasig WHERE idasig = '$idasig'")
@@ -26,4 +27,13 @@ or die(mysql_error());
   }
 }); 
 </script>";
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idusuario'");
+while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("Se ha eliminado la asignacion con ID #".$idasig. " del sistema" );
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
 ?>

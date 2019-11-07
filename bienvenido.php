@@ -41,10 +41,22 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
          <script src="assets/plotly-latest.min.js"></script>
          <script type="text/javascript" src="assets/jquery.js"></script>
     <script type="text/javascript" src="assets/jquery.maskedinput.js"></script>
+    <script src="assets/sweetalert2.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/sweetalert2.css">
     <style>
 video {
   width: 100%;
   height: auto;
+}
+</style>
+<style type="text/css">
+#center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  color: #225282;
 }
 </style>
     <style>
@@ -202,10 +214,17 @@ function checkTime(i) {
         }
     }
 </script>
-
+<style type="text/css">
+#centert {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 12%;
+}
+</style>
 </head>
 
-<body onload="startTime()">
+<body onload="startTime()"; onmouseover="AddAlert()";>
 
 
 
@@ -359,7 +378,17 @@ function checkTime(i) {
                                 ?>                              
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <a class="dropdown-item"><i class="fas fa-user m-r-5 m-l-5"></i>¡Hola <?php echo $_SESSION["usuarioactual"] ?>!</a>
-                                <a class="dropdown-item" href="chat.php"><i class="fas fa-comments m-r-5 m-l-5"></i> Mensajes</a>
+                                <a class="dropdown-item" href="bottel.php"><i class="fab fa-telegram m-r-5 m-l-5"></i>
+<?php
+                           $querbot=mysqli_query($link,"SELECT idusuario FROM botrecord  WHERE idusuario='$idusuario'");
+                           $checkbot = mysqli_num_rows($querbot); 
+            if ($checkbot >0 ) {
+                          echo "Modificar notificaciones";
+                           }
+                           else{
+                       echo "Activar notificaciones";
+                        }
+                         ?></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="myinfo.php"><i class="fas fa-info-circle m-r-5 m-l-5"></i> Mi informacion</a>
                                 <div class="dropdown-divider"></div>
@@ -387,24 +416,23 @@ function checkTime(i) {
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="bienvenido.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="estadisticas.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Estadisticas</span></a></li>
-
-                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Equipos </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="consultaequipos.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar entradas </span></a></li>
-                                <li class="sidebar-item"><a href="registroequipo.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar entrada </span></a></li>
-                                <li class="sidebar-item"><a href="addcat.php" class="sidebar-link"><i class="mdi mdi-cube-outline"></i><span class="hide-menu"> Agregar categoria </span></a></li>                                 
-                                <li class="sidebar-item"><a href="consultarcat.php" class="sidebar-link"><i class="mdi mdi-cube"></i><span class="hide-menu"> Verificar categorias </span></a></li>                                 
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="solicitud.php" aria-expanded="false"><i class="mdi mdi-file-check"></i><span class="hide-menu">Solicitud</span></a></li>
-                        </li>
-                            </ul>
-                        </li>
                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Usuarios </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="consultausuarios.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar </span></a></li>
                                 <li class="sidebar-item"><a href="registrouserbasic.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Agregar </span></a></li>
                             </ul>
                         </li>
+                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Equipos </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="consultaequipos.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar entradas </span></a></li>
+                                <li class="sidebar-item"><a href="registroequipo.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar entrada </span></a></li>
+                                <li class="sidebar-item"><a href="addcat.php" class="sidebar-link"><i class="mdi mdi-cube-outline"></i><span class="hide-menu"> Agregar categoria </span></a></li>                                 
+                                <li class="sidebar-item"><a href="consultarcat.php" class="sidebar-link"><i class="mdi mdi-cube"></i><span class="hide-menu"> Verificar categorias </span></a></li>                                
+                           
+                        </li>
+                            </ul>
+                        </li>
+                        
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-blur-linear"></i></i><span class="hide-menu">Aulas </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="consultaraula.php" class="sidebar-link"><i class="mdi mdi-arrow-down-box"></i><span class="hide-menu"> Listado de aulas </span></a></li>
@@ -412,17 +440,21 @@ function checkTime(i) {
                                 <li class="sidebar-item"><a href="asignacion.php" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Registrar salidas </span></a></li>
                                 <li class="sidebar-item"><a href="consultaasig.php" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Consultar salidas </span></a></li>                          
                             </ul>
+
+                           
                              <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-database"></i></i><span class="hide-menu">Datos</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="dataimport.php" class="sidebar-link"><i class="mdi mdi-debug-step-into"></i><span class="hide-menu"> Importar </span></a></li>
                                 <li class="sidebar-item"><a href="dataexport.php" class="sidebar-link"><i class="mdi mdi-debug-step-out"></i><span class="hide-menu"> Exportar </span></a></li>
                             </ul>
+
                                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-lock"></i><span class="hide-menu">Firma digital </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="registrohuella.php" class="sidebar-link"><i class="mdi mdi-lock-outline"></i><span class="hide-menu"> Agregar </span></a></li>
                                 <li class="sidebar-item"><a href="modificarfirma.php" class="sidebar-link"><i class="mdi mdi-lock-open-outline"></i><span class="hide-menu"> Modificar </span></a></li>
                             </ul>
                         </li>
+                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="estadisticas.php" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Estadisticas</span></a></li>
                            <?php
                            $queryv=mysqli_query($link,"SELECT iduser FROM encuesta WHERE iduser='$idusuario'");
                            $verif=0;
@@ -438,7 +470,7 @@ function checkTime(i) {
                         </li>";
                         }
                          ?>
-                         <br>
+        
                     
                        
                     </ul>
@@ -457,18 +489,30 @@ function checkTime(i) {
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-             <div class="page-breadcrumb">
+            <div class="page-breadcrumb">
                 <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        
-                        <h4 class="page-title">Bienvenido al Sistema de Entradas y Salidas - UEES</h4>
-                        <div class="ml-auto text-right">
-                            <nav aria-label="breadcrumb">
-                                
-                            </nav>
-                        </div>
+                     <div class="col-12">                       
+                        <div class="card">
+                            <div class="card-body" style="background-color: #ffe600">
+                          <div class="d-md-flex align-items-center">
+                                 <img src="assets/images/logouees.png" id="centert">
+                                                  <?php 
+$nombresbien=mysqli_query($link,"SELECT nombre,apellidos from registro where idusuario='$idusuario'");
+while($showtu = mysqli_fetch_row($nombresbien))
+            {
+              $showtunames=$showtu[0];
+              $showtulastnames=$showtu[1];
+               
+            }
+                                                   ?>
+                                                   <br>
+                                                   <h4 class="font-bold text-blue"  >Sistema de Entradas y Salidas (SES)</h4>
+                        <h4 class="font-bold text-blue" id="center" >Bienvenido <?php echo $showtunames; ?> <?php echo $showtulastnames;  ?></h4>
+                           
+                                </div>
+                              </div>
+                            </div>                         
                     </div>
-                </div>
             </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
@@ -484,7 +528,7 @@ function checkTime(i) {
                     <!-- Column -->
                     <div class="col-md-6 col-lg-4 col-xlg-3">
                         <div class="card card-hover">
-                            <div  style="background-color: #09b89b" class="box text-center" >
+                            <div  style="background-color: #0275b8" class="box text-center" >
                                 <h1 class="font-light text-white"><i class="mdi mdi-clock"></i></h1>
                                 <h6 class="text-white"><div id="clockdate">
   <div class="clockdate-wrapper">
@@ -516,7 +560,7 @@ function checkTime(i) {
                     <!-- Column -->
                     <div class="col-md-6 col-lg-4 col-xlg-3">
                         <div class="card card-hover">
-                            <div class="box bg-info text-center">
+                            <div class="box text-center" style="background-color: #7bb7b8">
                                 <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
                                 <h6><a href="consultaequipos.php" class="text-white">Consulta de equipos</a></h6>
                             </div>
@@ -553,7 +597,7 @@ function checkTime(i) {
                     <!-- Column -->
                     <div class="col-md-6 col-lg-4 col-xlg-3">
                         <div class="card card-hover">
-                            <div  style="background-color:#ffd900" class="box text-center" > 
+                            <div  style="background-color:#09b89b" class="box text-center" > 
                                 <h1 class="font-light text-white"><i class="mdi mdi-alert"></i></h1>
                                 <h6><a href="acercade.php" class="text-white">Acerca de</a></h6>
                             </div>
@@ -566,15 +610,11 @@ function checkTime(i) {
                 <!-- ============================================================== -->
 
                 <div class="row">
+                 
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-md-flex align-items-center">
-                                    <div>
-                                        <h4 class="card-title"></h4>
-                                        <h5 class="card-subtitle"></h5>
-                                    </div>
-                                </div>
+                            
                                 <div class="row">
                                
                                     <div class="col-lg-9">
@@ -642,7 +682,7 @@ var trace1 = {
   textposition: 'auto',
   hoverinfo: 'none',
   marker: {
-    color: 'rgb(255, 228, 20)',
+    color: 'rgb(242, 203, 0)',
     opacity: 1.0,
     line: {
       color: 'rgb(6, 44, 97)',
@@ -721,6 +761,23 @@ echo $rownaulas;
                         </div>
                     </div>
                     <div class="row">
+
+                          <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" align="center">MISIÓN</h5>
+                                <p align="center">“Formar profesionales con excelencia académica, conscientes del servicio a sus semejantes y con una ética cristiana basada en las sagradas escrituras para responder a las necesidades y cambios de la sociedad.”</p>
+                            </div>
+                        </div>
+                    </div>
+                           <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"  align="center">VISIÓN</h5>
+                                <p  align="center">“Ser la institución de educación superior, líder regional por su excelencia académica e innovación científica y tecnológica; reconocida por su naturaleza y práctica cristiana.”</p>
+                            </div>
+                        </div>
+                    </div>
        <div class="col-12">
                         <div class="card">
                             <div class="card-body">
@@ -762,22 +819,7 @@ echo $rownaulas;
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">MISIÓN</h5>
-                                <p>“Formar profesionales con excelencia académica, conscientes del servicio a sus semejantes y con una ética cristiana basada en las sagradas escrituras para responder a las necesidades y cambios de la sociedad.”</p>
-                            </div>
-                        </div>
-                    </div>
-                           <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">VISIÓN</h5>
-                                <p>“Ser la institución de educación superior, líder regional por su excelencia académica e innovación científica y tecnológica; reconocida por su naturaleza y práctica cristiana.”</p>
-                            </div>
-                        </div>
-                    </div>
+                
                      </div>
                                   <div class="row">
                     <div class="col-md-12">
@@ -797,6 +839,9 @@ Video no soportado
 
             <footer class="footer text-center">
                 Universidad Evangelica de El Salvador. Todos los derechos reservados 2019.
+                <p><a href="https://www.facebook.com/ueesoficial/" target="_blank"> <i class="font-24 mdi mdi-facebook-box"></i></a>
+                 <a href="https://twitter.com/ueesoficial" target="_blank"> <i class="font-24 mdi mdi-twitter-box"></i></a>
+                   <a href="https://www.instagram.com/explore/locations/1012393993/" target="_blank"> <i class="font-24 mdi mdi-instagram"></i></a></p>
                 
             </footer>
             <!-- ============================================================== -->
@@ -876,5 +921,43 @@ function showSlides(n) {
 </script>
 
 </body>
+<script>
 
+var mouseStop = null;
+var Time = 300000; //5 minutos
+
+function RemoveAlert() {
+  $("#add").show();
+  $("#del").hide();
+  $(document).off('mousemove');
+  clearTimeout(mouseStop); //agrego esto porque borra tambien el setTimeout y no ejecuta  Myfuncion.
+
+}
+
+function AddAlert() {
+  $("#add").hide();
+  $("#del").show();
+  $(document).on('mousemove', function() {
+     clearTimeout(mouseStop);
+     mouseStop = setTimeout(Myfunction,Time);
+
+  });
+}
+
+function Myfunction() {
+
+   
+      swal({
+  title: 'ALERTA',
+  text: 'Inactividad prolonganda. Por razones de seguridad se cerrará su sesion.',
+  type: 'error',
+  confirmButtonColor: '#3085d6',
+  confirmButtonText: 'OK'
+});
+       $('.swal2-confirm').click(function(){
+                window.location.href = 'salir.php';
+          });
+}
+
+</script>
 </html>

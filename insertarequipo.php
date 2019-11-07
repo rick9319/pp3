@@ -34,6 +34,15 @@ $cantidad=$_POST['cantidad'] ;
   }
 }); 
 </script>";
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idregistro'");
+while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("Una nueva entrada ha sido registrada en sistema. Marca: ".$marca.". Modelo: ".$modelo.". Numero de serie: ".$nserie.". Cantidad registrada: ".$cantidad );
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
 	}
 	else{
 				echo "   <script>

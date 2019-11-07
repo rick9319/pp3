@@ -9,6 +9,7 @@
 include("conexion.php");
 include("seguridad.php"); 
 $link=conecta();
+$idusuario=$_SESSION["id"]; 
 $id=$_POST['id'] ;
 $apr=$_POST['apr'] ;
 $resultequp=mysqli_query($link, "UPDATE procesoasig  SET aprob='$apr' WHERE idasig='$id'");
@@ -27,6 +28,16 @@ $resultequp=mysqli_query($link, "UPDATE procesoasig  SET aprob='$apr' WHERE idas
   }
 }); 
 </script>";
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idusuario'");
+while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("El proceso de asignacion con ID: #".$id. " se ha modificado correctamente, el nuevo estado de aprobacion es: " .$apr);
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
+
 	}
 	else{
 			echo "   <script>

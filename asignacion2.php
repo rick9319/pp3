@@ -72,6 +72,15 @@ echo " unidades existentes ',
   }
 }); 
 </script>";
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idusuario'");
+while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("Solicitud de asignacion ingresada correctamente. ID del equipo: " .$idequipo. " ID del aula: " .$idaula. " Cantidad asignada: " .$cantidad);
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
 
 	}
 	else{

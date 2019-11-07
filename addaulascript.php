@@ -9,6 +9,7 @@
 include("conexion.php");
 include("seguridad.php");
     $link=conecta();
+    $idusuario=$_SESSION["id"]; 
 $nombre=$_POST['nombre'] ;
 		 	$sqlcat = "INSERT INTO aula (aula) VALUES ('$nombre')";
 			  $result=mysqli_query($link, $sqlcat);
@@ -27,7 +28,16 @@ $nombre=$_POST['nombre'] ;
   }
 }); 
 </script>";
-	}
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idusuario'");
+while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("Aula insertada correctamente. Nombre de aula:" .$nombre );
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
+  }
 	else{
 				echo "   <script>
       swal({

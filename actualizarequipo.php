@@ -9,6 +9,7 @@
 include("conexion.php");
 include("seguridad.php"); 
 $link=conecta();
+$idusuario=$_SESSION["id"]; 
 $id=$_POST['id'] ;
 $marca=$_POST['marca'] ;
 $modelo= $_POST['modelo'] ;					
@@ -31,6 +32,15 @@ $resultequp=mysqli_query($link, "UPDATE equipo  SET idtipo='$tipo', marca='$marc
   }
 }); 
 </script>";
+$querbot=mysqli_query($link,"SELECT token,chat FROM botrecord  WHERE idusuario='$idusuario'");
+while($quertbotm = mysqli_fetch_row($querbot))
+            {
+              $token=$quertbotm[0];
+              $chat=$quertbotm[1];
+               $website="https://api.telegram.org/bot".$token;
+ $tex=urlencode("El equipo con ID #".$id. " se ha modificado correctamente los nuevos valores son los siguientes: Marca - " .$marca." Modelo - " .$modelo." Numero de serie - " .$nserie." Tipo - " .$tipo." Cantidad - " .$cantidad );
+ file_get_contents($website."/sendmessage?chat_id=$chat&text=$tex");
+            }
 	}
 	else{
 			echo "   <script>
