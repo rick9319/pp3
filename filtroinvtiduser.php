@@ -377,8 +377,12 @@ while($equiposuserf = mysqli_fetch_row($miembrouser))
             <!-- footer -->
             <!-- ============================================================== -->
     
-            <footer class="footer text-center">
+               <footer class="footer text-center">
                 Universidad Evangelica de El Salvador. Todos los derechos reservados 2019.
+                <p><a href="https://www.facebook.com/ueesoficial/" target="_blank"> <i class="font-24 mdi mdi-facebook-box"></i></a>
+                 <a href="https://twitter.com/ueesoficial" target="_blank"> <i class="font-24 mdi mdi-twitter-box"></i></a>
+                   <a href="https://www.instagram.com/explore/locations/1012393993/" target="_blank"> <i class="font-24 mdi mdi-instagram"></i></a></p>
+                
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
